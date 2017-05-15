@@ -3,18 +3,16 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { all, fork } from "redux-saga/effects";
 import { createLogger } from "redux-logger";
-import ReduxSagaOAuth from "./../src";
+import { reducer as auth } from "./../src";
 
 const loggerMiddleware = createLogger();
-
-const dummyReducer = () => ({});
 
 const sagas = function* rootSaga() {
   yield all([]);
 }
 
 const reducers = combineReducers({
-  dummy: dummyReducer,
+  auth,
 });
 
 const sagaMiddleware = createSagaMiddleware();
