@@ -6,9 +6,9 @@ import { take } from "redux-saga/effects";
 import { all, fork } from "redux-saga/effects";
 import { createLogger } from "redux-logger";
 import {
-  reducer,
+  authSagaReducer,
   createAuthSaga,
-  actions,
+  authSagaActions,
 } from "./../src";
 
 const loggerMiddleware = createLogger();
@@ -29,7 +29,7 @@ const sagas = function* rootSaga() {
 }
 
 const reducers = combineReducers({
-  custom_auth: reducer,
+  custom_auth: authSagaReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -74,7 +74,7 @@ $("form").on("submit", (e) => {
   };
 
   store.dispatch(
-    actions.authLoginRequest(params, callback)
+    authSagaActions.authLoginRequest(params, callback)
   );
 });
 
@@ -86,7 +86,7 @@ $("#expire").on("click", () => {
 
 $("#logout").on("click", () => {
   store.dispatch(
-    actions.authLogoutRequest()
+    authSagaActions.authLogoutRequest()
   );
 });
 

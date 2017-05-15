@@ -1,10 +1,10 @@
 // @flow
-import * as actions from "./actions";
-import reducer from "./reducer";
+import * as authSagaActions from "./actions";
+import authSagaReducer from "./reducer";
 import createAuthSaga from "./saga";
 
 export {
-  actions,
-  reducer,
+  authSagaActions,
+  authSagaReducer,
   createAuthSaga,
 };
