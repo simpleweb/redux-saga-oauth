@@ -25,8 +25,6 @@ import {
 import type { State } from "./reducer";
 import type { TokenExpiry } from "./types";
 
-const getAuth = state => state.auth;
-
 const tokenHasExpired = ({ expires_in, created_at }: TokenExpiry) => {
   const MILLISECONDS_IN_MINUTE = 1000 * 60;
 
@@ -49,7 +47,10 @@ const createAuthSaga = (options) => {
   const {
     OAUTH_URL,
     OAUTH_CLIENT_ID,
+    reducerKey,
   } = options;
+
+  const getAuth = state => state[reducerKey];
 
   function* RefreshToken(refresh_token) {
     try {
