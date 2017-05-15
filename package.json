@@ -1,0 +1,9 @@
+{
+  "name": "@simpleweb/redux-saga-oauth",
+  "version": "0.0.1",
+  "description": "An OAuth module for Redux Saga powered applications",
+  "main": "index.js",
+  "repository": "git@github.com:simpleweb/redux-saga-oauth.git",
+  "author": "Benjamin Reid <ben@simpleweb.co.uk>",
+  "license": "MIT"
+}
