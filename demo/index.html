@@ -2,6 +2,17 @@
 <html>
   <head>
     <title>Redux Saga OAuth</title>
+    <style>
+      .controls {
+        display: none;
+      }
+      .is-logged-in form {
+        display: none;
+      }
+      .is-logged-in .controls {
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <form action="">
@@ -10,8 +21,10 @@
       <input type="submit" name="Login">
     </form>
 
-    <button id="expire">Expire token</button>
-    <button id="logout">Logout</button>
+    <div class="controls">
+      <button id="expire">Expire token</button>
+      <button id="logout">Logout</button>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="bundle.js"></script>

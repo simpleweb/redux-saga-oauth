@@ -37,6 +37,17 @@ const store = createStore(
   ])
 );
 
+const render = () => {
+  const { loggedIn } = store.getState().auth;
+  if (loggedIn) {
+    $("body").addClass("is-logged-in");
+  } else {
+    $("body").removeClass("is-logged-in");
+  }
+};
+
+store.subscribe(render);
+
 sagaMiddleware.run(sagas);
 
 console.log("Running...", store.getState().auth);
