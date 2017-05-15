@@ -2,6 +2,7 @@
 declare var $: any;
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import createSagaMiddleware from "redux-saga";
+import { take } from "redux-saga/effects";
 import { all, fork } from "redux-saga/effects";
 import { createLogger } from "redux-logger";
 import {
@@ -13,6 +14,9 @@ import {
 const loggerMiddleware = createLogger();
 
 const authSaga = createAuthSaga({
+  loginActions: {
+    userRegister: take("USERS_REGISTER_SUCCESS"),
+  },
   reducerKey: 'custom_auth',
   OAUTH_URL: `http://localhost:3000/oauth/token.json`,
   OAUTH_CLIENT_ID: "287ea71215dfb6552c7a4467966799ea3f815cd8d7c0325dcce981410337878e",
@@ -83,5 +87,11 @@ $("#expire").on("click", () => {
 $("#logout").on("click", () => {
   store.dispatch(
     actions.authLogoutRequest()
+  );
+});
+
+$("#simulate").on("click", () => {
+  store.dispatch(
+    { type: "USERS_REGISTER_SUCCESS" }
   );
 });

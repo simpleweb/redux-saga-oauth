@@ -21,6 +21,19 @@
       <input type="submit" name="Login">
     </form>
 
+    <div>
+      <strong>Simulate Login</strong>
+      <p>
+        This will kick the refresh flow into play but you have had to trigger,
+        <code>AUTH_LOGIN</code> manually to set the credentials.
+      </p>
+      <p>
+        This may be used when you want to register a user <strong>and</strong>
+        log them in.
+      </p>
+      <button id="simulate">Simulate Login</button>
+    </div>
+
     <div class="controls">
       <button id="expire">Expire token</button>
       <button id="logout">Logout</button>

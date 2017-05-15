@@ -45,6 +45,7 @@ const tokenHasExpired = ({ expires_in, created_at }: TokenExpiry) => {
 
 const createAuthSaga = (options) => {
   const {
+    loginActions,
     OAUTH_URL,
     OAUTH_CLIENT_ID,
     reducerKey,
@@ -156,10 +157,10 @@ const createAuthSaga = (options) => {
       // if the users is logged in, we can skip over this bit
       if (!loggedIn) {
         // wait for a user to request to login
+        // or any custom login actions
         const actions = yield race({
           login: take(AUTH_LOGIN_REQUEST),
-          // @TODO look at how to optionally add log people in
-          // userRegistered: take(USERS_REGISTER_SUCCESS),
+          ...loginActions,
         });
 
         if (actions.login) {
