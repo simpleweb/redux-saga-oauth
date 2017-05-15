@@ -24,7 +24,7 @@ const authSaga = createAuthSaga({
 
 const sagas = function* rootSaga() {
   yield all([
-    authSaga(),
+    fork(authSaga),
   ]);
 }
 
