@@ -6,7 +6,7 @@ import {
 } from "./actions";
 import type { AuthToken } from "./types";
 
-type State = {
+export type State = {
   loggedIn: bool,
   access_token: null|string,
   created_at: null|number,
@@ -48,6 +48,13 @@ const reducer = (state: State = initialState, action: Action): State => {
     case AUTH_LOGOUT:
       return {
         ...initialState,
+      };
+
+    // this is for debugging, there is no public action to call this
+    case "AUTH_EXPIRE_TOKEN":
+      return {
+        ...state,
+        expires_in: 0,
       };
 
     default:

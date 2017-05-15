@@ -53,19 +53,33 @@ describe("Auth Actions", () => {
     });
 
     it(`authLoginRequest() creates an ${AUTH_LOGIN_REQUEST} action`, () => {
-      const action = authLoginRequest();
+      const params = {
+        client_id: "287ea71215dfb6552c7a4467966799ea3f815cd8d7c0325dcce9814103",
+        grant_type: "password",
+        username: "admin@simpleweb.co.uk",
+        password: "password",
+      };
+      const action = authLoginRequest(params);
       const expectedAction = {
         type: AUTH_LOGIN_REQUEST,
+        payload: params,
       };
 
       expect(action).toEqual(expectedAction);
     });
 
     it(`authLoginRequest() creates an ${AUTH_LOGIN_REQUEST} action with a callback`, () => {
+      const params = {
+        client_id: "287ea71215dfb6552c7a4467966799ea3f815cd8d7c0325dcce9814103",
+        grant_type: "password",
+        username: "admin@simpleweb.co.uk",
+        password: "password",
+      };
       const callback = () => undefined;
-      const action = authLoginRequest(callback);
+      const action = authLoginRequest(params, callback);
       const expectedAction = {
         type: AUTH_LOGIN_REQUEST,
+        payload: params,
         callback,
       };
 
@@ -73,9 +87,13 @@ describe("Auth Actions", () => {
     });
 
     it(`authLoginError() creates an ${AUTH_LOGIN_ERROR} action`, () => {
-      const action = authLoginError();
+      const errors = [{ text: "There was an error refreshing your token" }];
+      const action = authLoginError(errors);
       const expectedAction = {
         type: AUTH_LOGIN_ERROR,
+        payload: {
+          errors,
+        },
       };
 
       expect(action).toEqual(expectedAction);

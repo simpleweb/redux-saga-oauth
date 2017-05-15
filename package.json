@@ -27,5 +27,8 @@
     "redux-saga": "^0.15.3",
     "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "axios": "^0.16.1"
   }
 }

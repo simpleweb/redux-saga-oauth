@@ -1,5 +1,5 @@
 // @flow
-import type { AuthToken } from "./types";
+import type { AuthToken, AuthParams } from "./types";
 
 const prefix = "@simpleweb/redux-saga-oauth";
 
@@ -25,12 +25,16 @@ export const authLogin = (payload: AuthToken) => ({
   type: AUTH_LOGIN,
   payload,
 });
-export const authLoginRequest = (callback: ?Function) => ({
+export const authLoginRequest = (payload: AuthParams, callback: ?Function) => ({
   type: AUTH_LOGIN_REQUEST,
+  payload,
   callback,
 });
-export const authLoginError = () => ({
+export const authLoginError = (errors: ?any) => ({
   type: AUTH_LOGIN_ERROR,
+  payload: {
+    errors,
+  },
 });
 
 export const authLogout = () => ({

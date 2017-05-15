@@ -6,3 +6,12 @@ export type AuthToken = {
   refresh_token: string,
   token_type: string,
 };
+
+export type AuthParams = {
+  grant_type: string,
+};
+
+type TokenExpiry = {
+  expires_in: number,
+  created_at: number,
+};
