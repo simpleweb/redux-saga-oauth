@@ -7,6 +7,9 @@
   "author": "Benjamin Reid <ben@simpleweb.co.uk>",
   "license": "MIT",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage",
     "start": "webpack-dev-server",
     "build": "babel src/ -d lib/"
   },
