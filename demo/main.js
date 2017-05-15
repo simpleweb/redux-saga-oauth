@@ -2,7 +2,10 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { all, fork } from "redux-saga/effects";
+import { createLogger } from "redux-logger";
 import ReduxSagaOAuth from "./../src";
+
+const loggerMiddleware = createLogger();
 
 const dummyReducer = () => ({});
 
@@ -18,7 +21,10 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   reducers,
-  applyMiddleware(sagaMiddleware)
+  applyMiddleware(...[
+    sagaMiddleware,
+    loggerMiddleware,
+  ])
 );
 
 sagaMiddleware.run(sagas);
