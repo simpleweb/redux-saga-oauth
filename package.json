@@ -6,12 +6,17 @@
   "repository": "git@github.com:simpleweb/redux-saga-oauth.git",
   "author": "Benjamin Reid <ben@simpleweb.co.uk>",
   "license": "MIT",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage",
     "start": "webpack-dev-server",
-    "build": "babel src/ -d lib/"
+    "copy-flow": "flow-copy-source src lib",
+    "build": "babel src/ -d lib/",
+    "prepublish": "yarn run build && yarn run copy-flow"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -21,6 +26,7 @@
     "babel-preset-env": "^1.4.0",
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.46.0",
+    "flow-copy-source": "^1.1.0",
     "jest": "^20.0.1",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
