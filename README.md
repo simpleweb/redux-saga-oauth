@@ -5,7 +5,15 @@
 
 ### Install
 
-_coming soon_
+You can install this via `yarn` or `npm`, however, `yarn` is the preferred
+method.
+
+```
+yarn add @simpleweb/redux-saga-oauth
+```
+```
+npm install --save @simpleweb/redux-saga-oauth
+```
 
 ### Usage
 
