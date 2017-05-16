@@ -1,3 +1,4 @@
+// @flow
 import { delay } from "redux-saga";
 import {
   select,
@@ -23,9 +24,11 @@ import {
   authInvalidError,
 } from "./actions";
 import type { State } from "./reducer";
-import type { TokenExpiry } from "./types";
 
-const tokenHasExpired = ({ expires_in, created_at }: TokenExpiry) => {
+const tokenHasExpired = ({ expires_in, created_at }: {
+  expires_in: number,
+  created_at: number,
+}) => {
   const MILLISECONDS_IN_MINUTE = 1000 * 60;
 
   // set refreshBuffer to 10 minutes
@@ -43,7 +46,12 @@ const tokenHasExpired = ({ expires_in, created_at }: TokenExpiry) => {
   return now >= refresh_at;
 };
 
-const createAuthSaga = (options) => {
+const createAuthSaga = (options: {
+  loginActions?: Object,
+  reducerKey: string,
+  OAUTH_URL: string,
+  OAUTH_CLIENT_ID: string,
+}) => {
   const {
     loginActions,
     OAUTH_URL,
@@ -149,7 +157,7 @@ const createAuthSaga = (options) => {
   }
 
 
-  function* Authentication() {
+  function* Authentication(): Generator<*, *, *> {
     while (true) {
       const { loggedIn } = yield select(getAuth);
       var authorizeTask = null;

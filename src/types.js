@@ -10,8 +10,3 @@ export type AuthToken = {
 export type AuthParams = {
   grant_type: string,
 };
-
-type TokenExpiry = {
-  expires_in: number,
-  created_at: number,
-};
