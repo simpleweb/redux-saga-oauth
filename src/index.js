@@ -1,10 +1,15 @@
 // @flow
-import * as authSagaActions from "./actions";
-import authSagaReducer from "./reducer";
-import createAuthSaga from "./saga";
+import * as Actions from "./actions";
+import Reducer from "./reducer";
+import createOAuthSaga from "./saga";
+
+const login = Actions.authLoginRequest;
+const logout = Actions.authLogoutRequest;
 
 export {
-  authSagaActions,
-  authSagaReducer,
-  createAuthSaga,
+  Actions,
+  Reducer,
+  createOAuthSaga,
+  login,
+  logout,
 };
