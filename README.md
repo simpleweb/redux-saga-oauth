@@ -1,6 +1,19 @@
 # redux-saga-oauth [![Build Status](https://semaphoreci.com/api/v1/projects/80e0a632-ac8f-4dc6-bfca-10565b56f6f8/1319097/badge.svg)](https://semaphoreci.com/simpleweb/redux-saga-oauth)
 👮 An OAuth module for Redux Saga powered applications
 
+## What does it do?
+
+Redux Saga OAuth provides a reducer and a saga to handle authentication within
+any JavaScript application that uses Redux and Redux Saga.
+
+### Key features
+
+* Handles all HTTP requests with [axios](https://github.com/mzabriskie/axios)
+* Allows for any grant types and extra data to be passed during login
+* Automatically handles token refresh following the standard flow
+* Handles failures during the refresh flow and will retry until it succeeds
+* Allows the refresh token to be expired on the server and log users out
+
 ## Getting started
 
 ### Install
@@ -14,6 +27,9 @@ yarn add @simpleweb/redux-saga-oauth
 ```
 npm install --save @simpleweb/redux-saga-oauth
 ```
+
+It also has a peer dependency of `redux-saga`, please make sure this is
+installed before hand.
 
 ### Usage
 
