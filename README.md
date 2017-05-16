@@ -237,3 +237,7 @@ On Github,
 want to release) and add a description of the new release.
 
 Now run `yarn publish --access=public` to deploy the code to npm.
+
+## TL;DR
+
+![](https://media.giphy.com/media/12OIWdzFhisgww/giphy.gif)
