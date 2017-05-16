@@ -93,3 +93,26 @@ store.dispatch(
   logout()
 );
 ```
+
+## Development
+
+You can test this locally by installing it’s dependencies and linking it as a
+local module.
+
+```
+git clone git@github.com:simpleweb/redux-saga-oauth.git
+cd redux-saga-oauth
+yarn && yarn link
+```
+
+## Deployment
+
+Increment the `version` inside of the `package.json` and create a commit stating
+a new version has been created, e.g. "🚀 Released 1.0.0".
+
+On Github,
+[draft a new release](https://github.com/simpleweb/redux-saga-oauth/releases/new)
+, set the version and release title to "vX.X.X" (the version number that you
+want to release) and add a description of the new release.
+
+Now run `yarn publish --access=public` to deploy the code to npm.
