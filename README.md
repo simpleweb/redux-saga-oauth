@@ -1,4 +1,8 @@
-# redux-saga-oauth [![Build Status](https://semaphoreci.com/api/v1/projects/80e0a632-ac8f-4dc6-bfca-10565b56f6f8/1319097/badge.svg)](https://semaphoreci.com/simpleweb/redux-saga-oauth)
+# redux-saga-oauth
+
+[![NPM](https://img.shields.io/npm/v/@simpleweb/redux-saga-oauth.svg)](https://www.npmjs.com/package/@simpleweb/redux-saga-oauth)
+[![Build Status](https://semaphoreci.com/api/v1/projects/80e0a632-ac8f-4dc6-bfca-10565b56f6f8/1319097/badge.svg)](https://semaphoreci.com/simpleweb/redux-saga-oauth)
+
 👮 An OAuth module for Redux Saga powered applications
 
 ## What does it do?
