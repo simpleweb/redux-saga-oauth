@@ -123,78 +123,84 @@ Please note any `import`’s are missing from the code below.
 `App/Sagas/AuthenticatedRequest.js`
 
 ```js
-// custom error type to be thrown from this saga
+// Custom error type to be thrown from this saga
 // e.g. throw new AuthenticationSagaError('Some message');
 function AuthenticationSagaError(message) {
   this.message = message;
-  this.name = 'AuthenticationSagaError';
+  this.name = "AuthenticationSagaError";
 }
 
-// helper function to get the authentication state from the store
+// Helper function to get the authentication state from the store
 // the "authentication" key will be unique to your code
-const getAuthentication = state => state.authentication;
+const getAuthentication = state => state.auth;
 
-// helper function to check if the token has expired
-export const tokenHasExpired = ({ expires_in, created_at }) => {
+// Helper function to check if the token has expired
+export const tokenHasExpired = ({ expiresIn, createdAt }) => {
   const MILLISECONDS_IN_MINUTE = 1000 * 60;
 
-  // set refreshBuffer to 10 minutes
+  // Set refreshBuffer to 10 minutes
   // so the token is refreshed before expiry
   const refreshBuffer = MILLISECONDS_IN_MINUTE * 10;
 
-  // expiry time
+  // Expiry time
   // multiplied by 1000 as server time are return in seconds, not milliseconds
-  const expires_at = new Date((created_at + expires_in) * 1000).getTime();
-  // the current time
+  const expiresAt = new Date((createdAt + expiresIn) * 1000).getTime();
+  // The current time
   const now = new Date().getTime();
-  // when we want the token to be refreshed
-  const refresh_at = expires_at - refreshBuffer;
+  // When we want the token to be refreshed
+  const refreshAt = expiresAt - refreshBuffer;
 
-  return now >= refresh_at;
+  return now >= refreshAt;
 };
 
-// helper function to get the access token from the store
+// Helper function to get the access token from the store
 // if the token has expired, it will wait until the token has been refreshed
 // or an authentication invalid error is thrown
 function* getAccessToken() {
-  const { expires_in, created_at } = yield select(getAuthentication);
+  const authentication = yield select(getAuthentication);
 
-  // if the token has expired, wait for the refresh action
-  if (tokenHasExpired({ expires_in, created_at })) {
+  // Expires_in, created_at
+
+  // If the token has expired, wait for the refresh action
+  if (
+    tokenHasExpired({
+      expiresIn: authentication.expires_in,
+      createdAt: authentication.created_at,
+    })
+  ) {
     yield race({
       refreshError: take(AUTH_INVALID_ERROR),
       tokenRefreshed: take(AUTH_REFRESH_SUCCESS),
     });
   }
 
-  // return the latest access token
-  const { access_token } = yield select(getAuthentication);
-  return access_token;
+  // Return the latest access token
+  const latestAuthentication = yield select(getAuthentication);
+  return latestAuthentication.access_token;
 }
 
-// finally the function you’ll use inside your sagas to make requests
-export function* AuthenticatedRequest(...args) {
-  // get the current access token, wait for it if it needs refreshing
-  const access_token = yield getAccessToken();
+// Finally the function you’ll use inside your sagas to make requests
+export default function* AuthenticatedRequest(...args) {
+  // Get the current access token, wait for it if it needs refreshing
+  const accessToken = yield getAccessToken();
 
-  if (access_token) {
+  if (accessToken) {
     const config = {
       headers: {
-        'Authorization': `Bearer ${access_token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     };
 
     try {
       return yield call(...args, config);
-    } catch(error) {
+    } catch (error) {
       if (error.response && error.response.status === 401) {
         yield put(authInvalidError(error.response));
-        throw new AuthenticationSagaError('Unauthorized');
+        throw new AuthenticationSagaError("Unauthorized");
       } else {
         throw error;
       }
     }
-
   } else {
     throw new AuthenticationSagaError("No access token");
   }
