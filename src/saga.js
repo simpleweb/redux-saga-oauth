@@ -1,6 +1,6 @@
 // @flow
-import { delay } from "redux-saga";
 import {
+  delay,
   select,
   race,
   take,
