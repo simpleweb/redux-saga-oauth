@@ -68,19 +68,41 @@ describe("Auth Actions", () => {
       expect(action).toEqual(expectedAction);
     });
 
-    it(`authLoginRequest() creates an ${AUTH_LOGIN_REQUEST} action with a callback`, () => {
+    it(`authLoginRequest() creates an ${AUTH_LOGIN_REQUEST} action with a onSuccess callback`, () => {
       const params = {
         client_id: "287ea71215dfb6552c7a4467966799ea3f815cd8d7c0325dcce9814103",
         grant_type: "password",
         username: "admin@simpleweb.co.uk",
         password: "password",
       };
-      const callback = () => undefined;
-      const action = authLoginRequest(params, callback);
+      const onSuccess = () => undefined;
+      const onError = () => undefined;
+      const action = authLoginRequest(params, onSuccess, onError);
       const expectedAction = {
         type: AUTH_LOGIN_REQUEST,
         payload: params,
-        callback,
+        onSuccess,
+        onError,
+      };
+
+      expect(action).toEqual(expectedAction);
+    });
+
+    it(`authLoginRequest() creates an ${AUTH_LOGIN_REQUEST} action with a onError callback`, () => {
+      const params = {
+        client_id: "287ea71215dfb6552c7a4467966799ea3f815cd8d7c0325dcce9814103",
+        grant_type: "password",
+        username: "",
+        password: "",
+      };
+      const onSuccess = () => undefined;
+      const onError = () => undefined;
+      const action = authLoginRequest(params, onSuccess, onError);
+      const expectedAction = {
+        type: AUTH_LOGIN_REQUEST,
+        payload: params,
+        onSuccess,
+        onError,
       };
 
       expect(action).toEqual(expectedAction);
