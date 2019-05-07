@@ -25,10 +25,15 @@ export const authLogin = (payload: AuthToken) => ({
   type: AUTH_LOGIN,
   payload,
 });
-export const authLoginRequest = (payload: AuthParams, callback: ?Function) => ({
+export const authLoginRequest = (
+  payload: AuthParams,
+  onSuccess: ?Function,
+  onError: ?Function
+) => ({
   type: AUTH_LOGIN_REQUEST,
   payload,
-  callback,
+  onSuccess,
+  onError,
 });
 export const authLoginError = (errors: ?any) => ({
   type: AUTH_LOGIN_ERROR,

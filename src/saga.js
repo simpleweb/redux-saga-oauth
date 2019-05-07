@@ -134,7 +134,7 @@ const createAuthSaga = (options: {
 
   function* Authorize(action) {
     try {
-      const { callback, payload } = action;
+      const { onSuccess, payload } = action;
 
       const params = {
         ...payload,
@@ -144,14 +144,20 @@ const createAuthSaga = (options: {
       const { data: token } = yield call(axios.post, OAUTH_URL, params);
       yield put(authLogin(token));
 
-      if (callback) {
-        callback();
+      if (onSuccess) {
+        onSuccess();
       }
     } catch(error) {
+      const { onError } = action;
+
       if (error.response) {
         yield put(authLoginError(error.response.data));
       } else {
         yield put(authLoginError(error));
+      }
+
+      if (onError) {
+        onError(error.response ? error.response.data : error);
       }
     }
   }
