@@ -150,14 +150,14 @@ const createAuthSaga = (options: {
     } catch(error) {
       const { onError } = action;
 
+      if (onError) {
+        onError(error.response ? error.response.data : error);
+      }
+
       if (error.response) {
         yield put(authLoginError(error.response.data));
       } else {
         yield put(authLoginError(error));
-      }
-
-      if (onError) {
-        onError(error.response ? error.response.data : error);
       }
     }
   }
