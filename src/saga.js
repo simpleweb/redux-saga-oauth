@@ -25,7 +25,10 @@ import {
 } from "./actions";
 import type { State } from "./reducer";
 
-const tokenHasExpired = ({ expires_in, created_at }: {
+const tokenHasExpired = ({
+  expires_in,
+  created_at,
+}: {
   expires_in: number,
   created_at: number,
 }) => {
@@ -51,11 +54,13 @@ const createAuthSaga = (options: {
   reducerKey: string,
   OAUTH_URL: string,
   OAUTH_CLIENT_ID: string,
+  OAUTH_CLIENT_SECRET: string,
 }) => {
   const {
     loginActions,
     OAUTH_URL,
     OAUTH_CLIENT_ID,
+    OAUTH_CLIENT_SECRET,
     reducerKey,
   } = options;
 
@@ -66,12 +71,13 @@ const createAuthSaga = (options: {
       const params = {
         refresh_token,
         client_id: OAUTH_CLIENT_ID,
+        client_secret: OAUTH_CLIENT_SECRET,
         grant_type: "refresh_token",
       };
       const { data: token } = yield call(axios.post, OAUTH_URL, params);
       yield put(authRefreshSuccess(token));
       return true;
-    } catch(error) {
+    } catch (error) {
       if (error.response) {
         if (error.response.status === 401) {
           yield put(authInvalidError(error.response));
@@ -90,11 +96,7 @@ const createAuthSaga = (options: {
     let retries = 0;
 
     while (true) {
-      const {
-        expires_in,
-        created_at,
-        refresh_token,
-      } = yield select(getAuth);
+      const { expires_in, created_at, refresh_token } = yield select(getAuth);
 
       // if the token has expired, refresh it
       if (
@@ -139,6 +141,7 @@ const createAuthSaga = (options: {
       const params = {
         ...payload,
         client_id: OAUTH_CLIENT_ID,
+        client_secret: OAUTH_CLIENT_SECRET,
       };
 
       const { data: token } = yield call(axios.post, OAUTH_URL, params);
@@ -147,7 +150,7 @@ const createAuthSaga = (options: {
       if (onSuccess) {
         onSuccess();
       }
-    } catch(error) {
+    } catch (error) {
       const { onError } = action;
 
       if (onError) {
@@ -161,7 +164,6 @@ const createAuthSaga = (options: {
       }
     }
   }
-
 
   function* Authentication(): Generator<*, *, *> {
     while (true) {
