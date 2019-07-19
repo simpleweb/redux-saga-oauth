@@ -67,6 +67,7 @@ const authSaga = createOAuthSaga({
   reducerKey: "auth",
   OAUTH_URL: "http://localhost:3000/oauth/token.json",
   OAUTH_CLIENT_ID: "<CLIENT ID>",
+  OAUTH_CLIENT_SECRET: "<CLIENT SECRET>",
 });
 
 const sagas = function* rootSaga() {
